@@ -1,0 +1,52 @@
+---
+services:
+  web:
+    image: "kubedevio/rotten-potatoes:v1"
+    ports:
+      - "8000:5000"
+    networks:
+      - "lab_prometheus"
+    depends_on:
+      - "mongodb"
+    environment:
+      MONGODB_DB: "admin"
+      MONGODB_HOST: "mongodb"
+      MONGODB_PORT: "27017"
+      MONGODB_USERNAME: "mongouser"
+      MONGODB_PASSWORD: "mongopwd"
+
+  mongodb:
+    image: "mongo:7.0"
+    volumes:
+      - "db_mongo:/data/db"
+    networks:
+      - "lab_prometheus"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "mongouser"
+      MONGO_INITDB_ROOT_PASSWORD: "mongopwd"
+
+  prometheus:
+    image: "prom/prometheus:v2.48.1"
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    networks:
+      - "lab_prometheus"
+    extra_hosts:
+      host.docker.internal: "192.168.15.7"
+
+  grafana:
+    image: "grafana/grafana:10.2.2"
+    ports:
+      - "3000:3000"
+    networks:
+      - "lab_prometheus"
+
+volumes:
+  db_mongo:
+
+networks:
+  lab_prometheus:
+    driver: "bridge"
+...
