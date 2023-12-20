@@ -64,10 +64,14 @@ Para destruir a Stack e apagar volumes criados pelo Compose, execute:
   <figcaption>Dashboard do job "prometheus", em que há o monitoramento do próprio Prometheus</figcaption>
 </figure>
 
+---
+
 <figure>
   <img src="./screenshots/grafana-dashboard-b.png" alt="Dashboard do job rotten-potatoes">
   <figcaption>Dashboard do job "rotten-potatoes", em que há o monitoramento da aplicação web rotten-potatoes</figcaption>
 </figure>
+
+---
 
 <figure>
   <img src="./screenshots/grafana-dashboard-c.png" alt="Dashboard do job docker">
